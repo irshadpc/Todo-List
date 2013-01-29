@@ -231,6 +231,26 @@
         <image name="ipad-arrow.png" width="9" height="14"/>
         <image name="ipad-text-input.png" width="327" height="41"/>
     </resources>
+    <classes>
+        <class className="DetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+        </class>
+        <class className="MasterCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bgImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="disclosureImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
