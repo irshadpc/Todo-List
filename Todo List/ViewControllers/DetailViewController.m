@@ -12,7 +12,7 @@
 #import "MasterCell.h"
 #import "UIImage+iPhone5.h"
 
-@interface DetailViewController ()<UITextFieldDelegate> {
+@interface DetailViewController ()<UITextFieldDelegate, UISplitViewControllerDelegate> {
     __block NSMutableArray *_tasks;
 }
 @end
@@ -21,6 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIImage *navBarImage = [UIImage tallImageNamed:@"ipad-menubar-right.png"];
+    
+    [self.navigationController.navigationBar setBackgroundImage:navBarImage
+                                                  forBarMetrics:UIBarMetricsDefault];
+    
     UIColor* bgColor = [UIColor colorWithPatternImage:[UIImage tallImageNamed:@"ipad-BG-pattern.png"]];
     [self.view setBackgroundColor:bgColor];
     
@@ -40,6 +46,10 @@
 
 - (void) setTodoList:(TodoList *)todoList {
     _todoList = todoList;
+    
+    self.title = _todoList.text;
+    _tasks = nil;
+    [self.tableView reloadData];
     [self fetchTasks];
 }
 
@@ -58,36 +68,43 @@
                 }
                 [taskIds addObject:[[connection objectForKey:@"__endpointb"] objectForKey:@"articleid"]];
             }];
-            [APObject fetchObjectsWithObjectIds:taskIds
-                                     schemaName:@"tasks"
-                                 successHandler:^(NSDictionary *result) {
-                                     NSArray *tasks = [result objectForKey:@"articles"];
-                                     [tasks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                                         NSDictionary *taskDict = (NSDictionary*) obj;
-                                         
-                                         Task *task = [[Task alloc] init];
-                                         task.text = [taskDict objectForKey:@"text"];
-                                         task.completedAtDate = [APHelperMethods deserializeJsonDateString:[taskDict objectForKey:@"completed_at"]];
-                                         task.objectId = [taskDict objectForKey:@"__id"];
-                                         
-                                         if (_tasks == nil) {
-                                             _tasks = [NSMutableArray array];
-                                         }
-                                         
-                                         
-                                         if (![_tasks containsObject:task]) {
-                                             [_tasks addObject:task];
-                                         } else {
-                                             [_tasks removeObject:task];
-                                             [_tasks addObject:task];
-                                         }
-                                         
-                                         dispatch_async(dispatch_get_main_queue(), ^(){
-                                             [self.tableView reloadData];
-                                             [self.refreshControl endRefreshing];
-                                         });
-                                     }];
-                                 } failureHandler:nil];
+            
+            if (taskIds != nil) {
+                [APObject fetchObjectsWithObjectIds:taskIds
+                                         schemaName:@"tasks"
+                                     successHandler:^(NSDictionary *result) {
+                                         NSArray *tasks = [result objectForKey:@"articles"];
+                                         [tasks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                                             NSDictionary *taskDict = (NSDictionary*) obj;
+                                             
+                                             Task *task = [[Task alloc] init];
+                                             task.text = [taskDict objectForKey:@"text"];
+                                             task.completedAtDate = [APHelperMethods deserializeJsonDateString:[taskDict objectForKey:@"completed_at"]];
+                                             task.objectId = [taskDict objectForKey:@"__id"];
+                                             
+                                             if (_tasks == nil) {
+                                                 _tasks = [NSMutableArray array];
+                                             }
+                                             
+                                             
+                                             if (![_tasks containsObject:task]) {
+                                                 [_tasks addObject:task];
+                                             } else {
+                                                 [_tasks removeObject:task];
+                                                 [_tasks addObject:task];
+                                             }
+                                             
+                                             dispatch_async(dispatch_get_main_queue(), ^(){
+                                                 [self.tableView reloadData];
+                                                 [self.refreshControl endRefreshing];
+                                             });
+                                         }];
+                                     } failureHandler:nil];
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^(){
+                    [self.refreshControl endRefreshing];
+                });
+            }
         });
     } failureHandler:^(APError *error) {
         NSLog(@"%@", error.description);
@@ -159,5 +176,9 @@
     }
     [textField resignFirstResponder];
     return YES;
+}
+
+- (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
+    return NO;
 }
 @end
