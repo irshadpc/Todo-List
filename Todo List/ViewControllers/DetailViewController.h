@@ -6,9 +6,8 @@
 //  Copyright (c) 2013 Appacitive Software Pvt. Ltd. All rights reserved.
 //
 
+@class TodoList;
+
 @interface DetailViewController : UITableViewController <UISplitViewControllerDelegate>
-
-@property (strong, nonatomic) id detailItem;
-
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (nonatomic, strong) TodoList *todoList;
 @end

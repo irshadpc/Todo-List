@@ -7,6 +7,7 @@
 //
 
 @interface TodoList : NSObject
+@property (nonatomic, strong) NSNumber *objectId;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSDate *completedAtDate;
 @end

@@ -7,9 +7,12 @@
 //
 
 #import "MasterViewController.h"
+#import "DetailViewController.h"
 #import "TodoList.h"
+#import "UIImage+iPhone5.h"
+#import "MasterCell.h"
 
-@interface MasterViewController () {
+@interface MasterViewController ()<UITextFieldDelegate> {
     __block NSMutableArray *_todoLists;
 }
 @end
@@ -24,6 +27,22 @@
     [super awakeFromNib];
 }
 
+- (void) viewDidLoad {
+    [super viewDidLoad];
+    
+    UIImage *navBarImage = [UIImage tallImageNamed:@"ipad-menubar-left.png"];
+    
+    [self.navigationController.navigationBar setBackgroundImage:navBarImage
+                                                  forBarMetrics:UIBarMetricsDefault];
+    
+    UIColor* bgColor = [UIColor colorWithPatternImage:[UIImage tallImageNamed:@"ipad-BG-pattern.png"]];
+    [self.view setBackgroundColor:bgColor];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshControlRequestMade) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
+}
+
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionReceived) name:SessionReceivedNotification object:nil];
@@ -34,9 +53,11 @@
 }
 
 - (void) sessionReceived {
+    [self fetchTodoLists];
+}
+
+- (void) fetchTodoLists {
     [APObject searchAllObjectsWithSchemaName:@"todolists" successHandler:^(NSDictionary* results) {
-        //parse the data
-        NSLog(@"%@", results.description);
         NSArray *articles = [results objectForKey:@"articles"];
         
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -47,18 +68,32 @@
                 if(!_todoLists) {
                     _todoLists = [NSMutableArray array];
                 }
+                
                 TodoList *todoList = [[TodoList alloc] init];
+                todoList.objectId = [article objectForKey:@"__id"];
                 todoList.text = [article objectForKey:@"list_name"];
                 todoList.completedAtDate = [APHelperMethods deserializeJsonDateString:[article objectForKey:@"completed_at"]];
-             
-                [_todoLists addObject:todoList];
-             
+                
+                if (![_todoLists containsObject:todoList]) {
+                    [_todoLists addObject:todoList];
+                } else {
+                    [_todoLists removeObject:todoList];
+                    [_todoLists addObject:todoList];
+                }
+                
                 dispatch_async(dispatch_get_main_queue(), ^(){
                     [self.tableView reloadData];
+                    [self.refreshControl endRefreshing];
                 });
             }];
         });
     }];
+}
+
+#pragma mark UIRefreshControl method
+
+- (void) refreshControlRequestMade {
+    [self fetchTodoLists];
 }
 
 #pragma mark - Table View
@@ -72,16 +107,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    MasterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MasterCell" forIndexPath:indexPath];
 
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
     TodoList *todoList = _todoLists[indexPath.row];
-    cell.textLabel.text = todoList.text;
+    cell.titleLabel.text = todoList.text;
+    cell.textLabel.text = [todoList.completedAtDate description];
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
+
 /*
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -113,12 +152,26 @@
     }
 }
 
+ */
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
+        TodoList *todoList = _todoLists[indexPath.row];
+        
+        DetailViewController *detailViewController = [segue destinationViewController];
+        [detailViewController setTodoList:todoList];
     }
 }
-*/
+
+
+#pragma mark UITextField delegate method
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.text != nil && [textField.text length] != 0) {
+        NSLog(@"%@", textField.text);
+    }
+    [textField resignFirstResponder];
+    return YES;
+}
 @end

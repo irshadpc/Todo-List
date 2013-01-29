@@ -21,7 +21,26 @@
 		31560C5D16B680DA004D663B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31560C5C16B680DA004D663B /* CoreLocation.framework */; };
 		31560C6416B68234004D663B /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31560C6116B68234004D663B /* DetailViewController.m */; };
 		31560C6516B68234004D663B /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31560C6316B68234004D663B /* MasterViewController.m */; };
-		31560C6816B68647004D663B /* TodoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 31560C6716B68647004D663B /* TodoList.m */; };
+		610AAE0C16B797A90049DCAA /* UIImage+iPhone5.m in Sources */ = {isa = PBXBuildFile; fileRef = 610AAE0B16B797A90049DCAA /* UIImage+iPhone5.m */; };
+		610AAE1416B79A070049DCAA /* MasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 610AAE1316B79A070049DCAA /* MasterCell.m */; };
+		610CF72016B7C0560021EBC5 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 610CF71D16B7C0560021EBC5 /* Task.m */; };
+		610CF72116B7C0560021EBC5 /* TodoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 610CF71F16B7C0560021EBC5 /* TodoList.m */; };
+		610CF73616B7E75A0021EBC5 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72616B7E75A0021EBC5 /* back.png */; };
+		610CF73716B7E75A0021EBC5 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72716B7E75A0021EBC5 /* back@2x.png */; };
+		610CF73816B7E75A0021EBC5 /* ipad-arrow-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72816B7E75A0021EBC5 /* ipad-arrow-selected.png */; };
+		610CF73916B7E75A0021EBC5 /* ipad-arrow-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72916B7E75A0021EBC5 /* ipad-arrow-selected@2x.png */; };
+		610CF73A16B7E75A0021EBC5 /* ipad-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72A16B7E75A0021EBC5 /* ipad-arrow.png */; };
+		610CF73B16B7E75A0021EBC5 /* ipad-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72B16B7E75A0021EBC5 /* ipad-arrow@2x.png */; };
+		610CF73C16B7E75A0021EBC5 /* ipad-BG-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72C16B7E75A0021EBC5 /* ipad-BG-pattern.png */; };
+		610CF73D16B7E75A0021EBC5 /* ipad-BG-pattern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72D16B7E75A0021EBC5 /* ipad-BG-pattern@2x.png */; };
+		610CF73E16B7E75A0021EBC5 /* ipad-list-element.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72E16B7E75A0021EBC5 /* ipad-list-element.png */; };
+		610CF73F16B7E75A0021EBC5 /* ipad-list-element@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF72F16B7E75A0021EBC5 /* ipad-list-element@2x.png */; };
+		610CF74016B7E75A0021EBC5 /* ipad-list-item-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF73016B7E75A0021EBC5 /* ipad-list-item-selected.png */; };
+		610CF74116B7E75A0021EBC5 /* ipad-list-item-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF73116B7E75A0021EBC5 /* ipad-list-item-selected@2x.png */; };
+		610CF74216B7E75A0021EBC5 /* ipad-menubar-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF73216B7E75A0021EBC5 /* ipad-menubar-left.png */; };
+		610CF74316B7E75A0021EBC5 /* ipad-menubar-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF73316B7E75A0021EBC5 /* ipad-menubar-left@2x.png */; };
+		610CF74416B7E75A0021EBC5 /* ipad-text-input.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF73416B7E75A0021EBC5 /* ipad-text-input.png */; };
+		610CF74516B7E75A0021EBC5 /* ipad-text-input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CF73516B7E75A0021EBC5 /* ipad-text-input@2x.png */; };
 		841A2D0C4ABC41558B2A947F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4170EBF46299496AAE054FA9 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -46,10 +65,32 @@
 		31560C6116B68234004D663B /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		31560C6216B68234004D663B /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		31560C6316B68234004D663B /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		31560C6616B68647004D663B /* TodoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoList.h; sourceTree = "<group>"; };
-		31560C6716B68647004D663B /* TodoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoList.m; sourceTree = "<group>"; };
 		4170EBF46299496AAE054FA9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E80C135DDC0486E84ECC86B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		610AAE0A16B797A90049DCAA /* UIImage+iPhone5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+iPhone5.h"; sourceTree = "<group>"; };
+		610AAE0B16B797A90049DCAA /* UIImage+iPhone5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+iPhone5.m"; sourceTree = "<group>"; };
+		610AAE1216B79A070049DCAA /* MasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterCell.h; sourceTree = "<group>"; };
+		610AAE1316B79A070049DCAA /* MasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterCell.m; sourceTree = "<group>"; };
+		610CF71C16B7C0560021EBC5 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		610CF71D16B7C0560021EBC5 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		610CF71E16B7C0560021EBC5 /* TodoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoList.h; sourceTree = "<group>"; };
+		610CF71F16B7C0560021EBC5 /* TodoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoList.m; sourceTree = "<group>"; };
+		610CF72616B7E75A0021EBC5 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		610CF72716B7E75A0021EBC5 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		610CF72816B7E75A0021EBC5 /* ipad-arrow-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-arrow-selected.png"; sourceTree = "<group>"; };
+		610CF72916B7E75A0021EBC5 /* ipad-arrow-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-arrow-selected@2x.png"; sourceTree = "<group>"; };
+		610CF72A16B7E75A0021EBC5 /* ipad-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-arrow.png"; sourceTree = "<group>"; };
+		610CF72B16B7E75A0021EBC5 /* ipad-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-arrow@2x.png"; sourceTree = "<group>"; };
+		610CF72C16B7E75A0021EBC5 /* ipad-BG-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-BG-pattern.png"; sourceTree = "<group>"; };
+		610CF72D16B7E75A0021EBC5 /* ipad-BG-pattern@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-BG-pattern@2x.png"; sourceTree = "<group>"; };
+		610CF72E16B7E75A0021EBC5 /* ipad-list-element.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-list-element.png"; sourceTree = "<group>"; };
+		610CF72F16B7E75A0021EBC5 /* ipad-list-element@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-list-element@2x.png"; sourceTree = "<group>"; };
+		610CF73016B7E75A0021EBC5 /* ipad-list-item-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-list-item-selected.png"; sourceTree = "<group>"; };
+		610CF73116B7E75A0021EBC5 /* ipad-list-item-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-list-item-selected@2x.png"; sourceTree = "<group>"; };
+		610CF73216B7E75A0021EBC5 /* ipad-menubar-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-menubar-left.png"; sourceTree = "<group>"; };
+		610CF73316B7E75A0021EBC5 /* ipad-menubar-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-menubar-left@2x.png"; sourceTree = "<group>"; };
+		610CF73416B7E75A0021EBC5 /* ipad-text-input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-text-input.png"; sourceTree = "<group>"; };
+		610CF73516B7E75A0021EBC5 /* ipad-text-input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-text-input@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +112,7 @@
 		31560C1D16B67F83004D663B = {
 			isa = PBXGroup;
 			children = (
+				610AAE0116B796090049DCAA /* Resources */,
 				31560C3216B67F83004D663B /* Todo List */,
 				31560C2B16B67F83004D663B /* Frameworks */,
 				31560C2916B67F83004D663B /* Products */,
@@ -101,8 +143,9 @@
 		31560C3216B67F83004D663B /* Todo List */ = {
 			isa = PBXGroup;
 			children = (
-				31560C6616B68647004D663B /* TodoList.h */,
-				31560C6716B68647004D663B /* TodoList.m */,
+				610CF71B16B7BFD20021EBC5 /* CustomClasses */,
+				610AAE1116B799DA0049DCAA /* TableViewCell */,
+				610AAE0916B797800049DCAA /* Categories */,
 				31560C5F16B6812A004D663B /* ViewControllers */,
 				31560C3B16B67F83004D663B /* AppDelegate.h */,
 				31560C3C16B67F83004D663B /* AppDelegate.m */,
@@ -136,6 +179,74 @@
 				31560C6116B68234004D663B /* DetailViewController.m */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		610AAE0116B796090049DCAA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				610AAE0416B796320049DCAA /* iPad */,
+				610AAE0316B796210049DCAA /* iPhone */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		610AAE0316B796210049DCAA /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = iPhone;
+			sourceTree = "<group>";
+		};
+		610AAE0416B796320049DCAA /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				610CF72616B7E75A0021EBC5 /* back.png */,
+				610CF72716B7E75A0021EBC5 /* back@2x.png */,
+				610CF72816B7E75A0021EBC5 /* ipad-arrow-selected.png */,
+				610CF72916B7E75A0021EBC5 /* ipad-arrow-selected@2x.png */,
+				610CF72A16B7E75A0021EBC5 /* ipad-arrow.png */,
+				610CF72B16B7E75A0021EBC5 /* ipad-arrow@2x.png */,
+				610CF72C16B7E75A0021EBC5 /* ipad-BG-pattern.png */,
+				610CF72D16B7E75A0021EBC5 /* ipad-BG-pattern@2x.png */,
+				610CF72E16B7E75A0021EBC5 /* ipad-list-element.png */,
+				610CF72F16B7E75A0021EBC5 /* ipad-list-element@2x.png */,
+				610CF73016B7E75A0021EBC5 /* ipad-list-item-selected.png */,
+				610CF73116B7E75A0021EBC5 /* ipad-list-item-selected@2x.png */,
+				610CF73216B7E75A0021EBC5 /* ipad-menubar-left.png */,
+				610CF73316B7E75A0021EBC5 /* ipad-menubar-left@2x.png */,
+				610CF73416B7E75A0021EBC5 /* ipad-text-input.png */,
+				610CF73516B7E75A0021EBC5 /* ipad-text-input@2x.png */,
+			);
+			path = iPad;
+			sourceTree = "<group>";
+		};
+		610AAE0916B797800049DCAA /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				610AAE0A16B797A90049DCAA /* UIImage+iPhone5.h */,
+				610AAE0B16B797A90049DCAA /* UIImage+iPhone5.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		610AAE1116B799DA0049DCAA /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				610AAE1216B79A070049DCAA /* MasterCell.h */,
+				610AAE1316B79A070049DCAA /* MasterCell.m */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		610CF71B16B7BFD20021EBC5 /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				610CF71C16B7C0560021EBC5 /* Task.h */,
+				610CF71D16B7C0560021EBC5 /* Task.m */,
+				610CF71E16B7C0560021EBC5 /* TodoList.h */,
+				610CF71F16B7C0560021EBC5 /* TodoList.m */,
+			);
+			path = CustomClasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +307,22 @@
 				31560C4316B67F83004D663B /* Default-568h@2x.png in Resources */,
 				31560C4616B67F83004D663B /* MainStoryboard_iPhone.storyboard in Resources */,
 				31560C4916B67F83004D663B /* MainStoryboard_iPad.storyboard in Resources */,
+				610CF73616B7E75A0021EBC5 /* back.png in Resources */,
+				610CF73716B7E75A0021EBC5 /* back@2x.png in Resources */,
+				610CF73816B7E75A0021EBC5 /* ipad-arrow-selected.png in Resources */,
+				610CF73916B7E75A0021EBC5 /* ipad-arrow-selected@2x.png in Resources */,
+				610CF73A16B7E75A0021EBC5 /* ipad-arrow.png in Resources */,
+				610CF73B16B7E75A0021EBC5 /* ipad-arrow@2x.png in Resources */,
+				610CF73C16B7E75A0021EBC5 /* ipad-BG-pattern.png in Resources */,
+				610CF73D16B7E75A0021EBC5 /* ipad-BG-pattern@2x.png in Resources */,
+				610CF73E16B7E75A0021EBC5 /* ipad-list-element.png in Resources */,
+				610CF73F16B7E75A0021EBC5 /* ipad-list-element@2x.png in Resources */,
+				610CF74016B7E75A0021EBC5 /* ipad-list-item-selected.png in Resources */,
+				610CF74116B7E75A0021EBC5 /* ipad-list-item-selected@2x.png in Resources */,
+				610CF74216B7E75A0021EBC5 /* ipad-menubar-left.png in Resources */,
+				610CF74316B7E75A0021EBC5 /* ipad-menubar-left@2x.png in Resources */,
+				610CF74416B7E75A0021EBC5 /* ipad-text-input.png in Resources */,
+				610CF74516B7E75A0021EBC5 /* ipad-text-input@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +354,10 @@
 				31560C3D16B67F83004D663B /* AppDelegate.m in Sources */,
 				31560C6416B68234004D663B /* DetailViewController.m in Sources */,
 				31560C6516B68234004D663B /* MasterViewController.m in Sources */,
-				31560C6816B68647004D663B /* TodoList.m in Sources */,
+				610AAE0C16B797A90049DCAA /* UIImage+iPhone5.m in Sources */,
+				610AAE1416B79A070049DCAA /* MasterCell.m in Sources */,
+				610CF72016B7C0560021EBC5 /* Task.m in Sources */,
+				610CF72116B7C0560021EBC5 /* TodoList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
