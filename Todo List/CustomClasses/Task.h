@@ -9,5 +9,5 @@
 @interface Task : NSObject
 @property (nonatomic, strong) NSNumber *objectId;
 @property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSDate *completedAtDate;
+@property (nonatomic, strong) NSString *completedAtDate;
 @end

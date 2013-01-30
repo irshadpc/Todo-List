@@ -38,6 +38,11 @@
     
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal
                                                     barMetrics:UIBarMetricsDefault];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    textField.borderStyle = UITextBorderStyleLine;
+    textField.placeholder = @"Create a new task";
+    textField.delegate = self;
+    self.tableView.tableHeaderView = textField;
 }
 
 - (void) refreshControlRequestMade {
@@ -79,7 +84,7 @@
                                              
                                              Task *task = [[Task alloc] init];
                                              task.text = [taskDict objectForKey:@"text"];
-                                             task.completedAtDate = [APHelperMethods deserializeJsonDateString:[taskDict objectForKey:@"completed_at"]];
+                                             task.completedAtDate = [taskDict objectForKey:@"completed_at"];
                                              task.objectId = [taskDict objectForKey:@"__id"];
                                              
                                              if (_tasks == nil) {
@@ -122,11 +127,64 @@
     MasterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MasterCell"];
     
     [cell setSelectionStyle:UITableViewCellEditingStyleNone];
-    
     Task *task = [_tasks objectAtIndex:indexPath.row];
     cell.titleLabel.text = task.text;
     cell.textLabel.text = [task.completedAtDate description];
+    
+    if (task.completedAtDate != nil) {
+        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    } else {
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+    }
     return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+
+        Task *task = _tasks[indexPath.row];
+        
+        APObject *object = [APObject objectWithSchemaName:@"tasks"];
+        object.objectId = task.objectId;
+        [object deleteObjectWithConnectingConnectionsSuccessHandler:^(){
+            [_tasks removeObject:task];
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                [self.tableView reloadData];
+            });
+        } failureHandler:nil];
+    }
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    Task *task = _tasks[indexPath.row];
+    APObject *taskObject = [APObject objectWithSchemaName:@"tasks"];
+    taskObject.objectId = task.objectId;
+    
+    if (tableViewCell.accessoryType == UITableViewCellAccessoryNone) {
+        [tableViewCell setAccessoryType:UITableViewCellAccessoryCheckmark];
+
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        
+        NSString *completedAt = [dateFormatter stringFromDate:[NSDate date]];
+        [taskObject addPropertyWithKey:@"completed_at" value:completedAt];
+        task.completedAtDate = completedAt;
+    } else {
+        [tableViewCell setAccessoryType:UITableViewCellAccessoryNone];
+        
+        [taskObject addPropertyWithKey:@"completed_at" value:[NSNull null]];
+        task.completedAtDate = nil;
+    }
+    [taskObject updateObjectWithSuccessHandler:^(){
+        [self.tableView reloadData];
+    } failureHandler:nil];
 }
 
 #pragma mark - Split view
