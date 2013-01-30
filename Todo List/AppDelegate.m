@@ -2,13 +2,12 @@
 //  AppDelegate.m
 //  Todo List
 //
-//  Created by Nikhil Prasad on 28/01/13.
 //  Copyright (c) 2013 Appacitive Software Pvt. Ltd. All rights reserved.
 //
 
 #import "AppDelegate.h"
 #import "DetailViewController.h"
-
+#import "ApiKey.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -25,7 +24,7 @@
         DetailViewController *detailViewController = (DetailViewController*)[(UINavigationController*)[splitViewController.viewControllers lastObject] topViewController];
         splitViewController.delegate = detailViewController;
     }
-    [Appacitive appacitiveWithApiKey:@"ukaAo61yoZoeTJsGacH9TDRHnhf/J9/kH2TStR5sD3k="];
+    [Appacitive appacitiveWithApiKey:API_KEY];
     return YES;
 }
 @end

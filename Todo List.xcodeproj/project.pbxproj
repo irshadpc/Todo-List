@@ -95,6 +95,7 @@
 		610CF73516B7E75A0021EBC5 /* ipad-text-input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-text-input@2x.png"; sourceTree = "<group>"; };
 		610CF77E16B7F7160021EBC5 /* ipad-menubar-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-menubar-right.png"; sourceTree = "<group>"; };
 		610CF77F16B7F7160021EBC5 /* ipad-menubar-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-menubar-right@2x.png"; sourceTree = "<group>"; };
+		61797B1F16B9184800A263BD /* ApiKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKey.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +171,7 @@
 				31560C3E16B67F83004D663B /* Default.png */,
 				31560C4016B67F83004D663B /* Default@2x.png */,
 				31560C4216B67F83004D663B /* Default-568h@2x.png */,
+				61797B1F16B9184800A263BD /* ApiKey.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

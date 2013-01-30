@@ -2,7 +2,6 @@
 //  MasterViewController.m
 //  Todo List
 //
-//  Created by Nikhil Prasad on 28/01/13.
 //  Copyright (c) 2013 Appacitive Software Pvt. Ltd. All rights reserved.
 //
 
@@ -42,6 +41,12 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshControlRequestMade) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:refreshControl];
+    
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    textField.borderStyle = UITextBorderStyleLine;
+    textField.placeholder = @"Create a new list";
+    textField.delegate = self;
+    self.tableView.tableHeaderView = textField;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -73,7 +78,6 @@
                 TodoList *todoList = [[TodoList alloc] init];
                 todoList.objectId = [article objectForKey:@"__id"];
                 todoList.text = [article objectForKey:@"list_name"];
-                todoList.completedAtDate = [APHelperMethods deserializeJsonDateString:[article objectForKey:@"completed_at"]];
                 
                 if (![_todoLists containsObject:todoList]) {
                     [_todoLists addObject:todoList];
@@ -122,6 +126,22 @@
     return YES;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        TodoList *todoList = _todoLists[indexPath.row];
+        
+        APObject *object = [APObject objectWithSchemaName:@"todolists"];
+        object.objectId = todoList.objectId;
+        [object deleteObjectWithConnectingConnectionsSuccessHandler:^(){
+            [_todoLists removeObject:todoList];
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                [self.tableView reloadData];
+            });
+        } failureHandler:nil];
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         TodoList *todoList = _todoLists[indexPath.row];
@@ -141,12 +161,28 @@
     }
 }
 
-
 #pragma mark UITextField delegate method
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField.text != nil && [textField.text length] != 0) {
-        NSLog(@"%@", textField.text);
+
+        APObject *todoList = [APObject objectWithSchemaName:@"todolists"];
+        [todoList addPropertyWithKey:@"list_name" value:textField.text];
+        [todoList saveObjectWithSuccessHandler:^(NSDictionary *result) {
+            if (_todoLists == nil) {
+                _todoLists = [NSMutableArray array];
+            }
+            
+            TodoList *newList = [[TodoList alloc] init];
+            newList.objectId = [[result objectForKey:@"article"] objectForKey:@"__id"];
+            newList.text = textField.text;
+            [_todoLists addObject:newList];
+
+            textField.text = nil;
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                [self.tableView reloadData];
+            });
+        } failureHandler:nil];
     }
     [textField resignFirstResponder];
     return YES;
