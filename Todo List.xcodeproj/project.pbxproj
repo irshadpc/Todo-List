@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182A98B416BBBF7700121709 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A98B316BBBF7700121709 /* LoginViewController.m */; };
+		182A98CB16BBD0B900121709 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A98CA16BBD0B900121709 /* RegisterViewController.m */; };
 		31560C2D16B67F83004D663B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31560C2C16B67F83004D663B /* UIKit.framework */; };
 		31560C2F16B67F83004D663B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31560C2E16B67F83004D663B /* Foundation.framework */; };
 		31560C3116B67F83004D663B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31560C3016B67F83004D663B /* CoreGraphics.framework */; };
@@ -47,6 +49,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		182A98B216BBBF7700121709 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		182A98B316BBBF7700121709 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		182A98C916BBD0B900121709 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		182A98CA16BBD0B900121709 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		31560C2816B67F83004D663B /* Todo List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todo List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31560C2C16B67F83004D663B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		31560C2E16B67F83004D663B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -183,6 +189,10 @@
 				31560C6316B68234004D663B /* MasterViewController.m */,
 				31560C6016B68234004D663B /* DetailViewController.h */,
 				31560C6116B68234004D663B /* DetailViewController.m */,
+				182A98B216BBBF7700121709 /* LoginViewController.h */,
+				182A98B316BBBF7700121709 /* LoginViewController.m */,
+				182A98C916BBD0B900121709 /* RegisterViewController.h */,
+				182A98CA16BBD0B900121709 /* RegisterViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -368,6 +378,8 @@
 				610AAE1416B79A070049DCAA /* MasterCell.m in Sources */,
 				610CF72016B7C0560021EBC5 /* Task.m in Sources */,
 				610CF72116B7C0560021EBC5 /* TodoList.m in Sources */,
+				182A98B416BBBF7700121709 /* LoginViewController.m in Sources */,
+				182A98CB16BBD0B900121709 /* RegisterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

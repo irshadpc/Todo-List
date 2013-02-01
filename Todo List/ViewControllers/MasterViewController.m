@@ -7,6 +7,7 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "LoginViewController.h"
 #import "TodoList.h"
 #import "UIImage+iPhone5.h"
 #import "MasterCell.h"
@@ -38,6 +39,15 @@
     UIColor* bgColor = [UIColor colorWithPatternImage:[UIImage tallImageNamed:@"ipad-BG-pattern.png"]];
     [self.view setBackgroundColor:bgColor];
     
+    if([APUser currentUser] == nil) {
+        UIStoryboard *storyBoardTemp = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+        __weak LoginViewController *loginViewController = (LoginViewController *) [storyBoardTemp instantiateViewControllerWithIdentifier:@"login"];
+        loginViewController.loginSuccessful = ^() {
+            [self fetchTodoLists];
+        };
+        [self.navigationController pushViewController:loginViewController animated:YES];
+    }
+    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshControlRequestMade) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:refreshControl];
@@ -59,39 +69,66 @@
 }
 
 - (void) sessionReceived {
-    [self fetchTodoLists];
 }
 
 - (void) fetchTodoLists {
-    [APObject searchAllObjectsWithSchemaName:@"todolists" successHandler:^(NSDictionary* results) {
-        NSArray *articles = [results objectForKey:@"articles"];
-        
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(queue, ^(){
-            [articles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                NSDictionary *article = (NSDictionary*) obj;
-                
-                if(!_todoLists) {
-                    _todoLists = [NSMutableArray array];
+    APUser *currentUser = [APUser currentUser];
+    
+    NSString *query = [NSString stringWithFormat:@"articleid=%lld&label=todolists", currentUser.objectId.longLongValue];
+    
+    [APConnection searchForConnectionsWithRelationType:@"user_lists" withQueryString:query successHandler:^(NSDictionary *result) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+            NSArray *connections = [result objectForKey:@"connections"];
+            __block NSMutableArray *todoListIds;
+            
+            [connections enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                NSDictionary * connection = (NSDictionary*) obj;
+                if (todoListIds == nil) {
+                    todoListIds = [NSMutableArray array];
                 }
-                
-                TodoList *todoList = [[TodoList alloc] init];
-                todoList.objectId = [article objectForKey:@"__id"];
-                todoList.text = [article objectForKey:@"list_name"];
-                
-                if (![_todoLists containsObject:todoList]) {
-                    [_todoLists addObject:todoList];
-                } else {
-                    [_todoLists removeObject:todoList];
-                    [_todoLists addObject:todoList];
-                }
-                
+                [todoListIds addObject:[[connection objectForKey:@"__endpointb"] objectForKey:@"articleid"]];
+            }];
+            
+            if (todoListIds != nil) {
+                [APObject fetchObjectsWithObjectIds:todoListIds
+                                         schemaName:@"todolists"
+                                     successHandler:^(NSDictionary *result) {
+                                         NSArray *todoLists = [result objectForKey:@"articles"];
+                                         [todoLists enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                                             NSDictionary *taskDict = (NSDictionary*) obj;
+                                             
+                                             TodoList *todoList = [[TodoList alloc] init];
+                                             todoList.text = [taskDict objectForKey:@"list_name"];
+                                             todoList.completedAtDate = [taskDict objectForKey:@"completed_at"];
+                                             todoList.objectId = [taskDict objectForKey:@"__id"];
+                                             
+                                             if (_todoLists == nil) {
+                                                 _todoLists = [NSMutableArray array];
+                                             }
+                                             
+                                             
+                                             if (![_todoLists containsObject:todoList]) {
+                                                 [_todoLists addObject:todoList];
+                                             } else {
+                                                 [_todoLists removeObject:todoList];
+                                                 [_todoLists addObject:todoList];
+                                             }
+                                             
+                                             dispatch_async(dispatch_get_main_queue(), ^(){
+                                                 [self.tableView reloadData];
+                                                 [self.refreshControl endRefreshing];
+                                             });
+                                         }];
+                                     } failureHandler:nil];
+            } else {
                 dispatch_async(dispatch_get_main_queue(), ^(){
-                    [self.tableView reloadData];
                     [self.refreshControl endRefreshing];
                 });
-            }];
+            }
         });
+    } failureHandler:^(APError *error) {
+        NSLog(@"%@", error.description);
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -182,6 +219,15 @@
             dispatch_async(dispatch_get_main_queue(), ^(){
                 [self.tableView reloadData];
             });
+            
+            APConnection *connection = [[APConnection alloc] initWithRelationType:@"user_lists"];
+            connection.labelA = @"user";
+            connection.articleAId = [[APUser currentUser] objectId];
+            connection.labelB =@"todolists";
+            connection.articleBId = newList.objectId;
+            
+            [connection create];
+            
         } failureHandler:nil];
     }
     [textField resignFirstResponder];
